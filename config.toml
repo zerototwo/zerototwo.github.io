@@ -137,3 +137,5 @@ params = ["categories", "tags"]
     startLevel = 1
   [markup.highlight]
     style = "dracula"
+[frontmatter]
+date = [":default", "2006-01-02"]

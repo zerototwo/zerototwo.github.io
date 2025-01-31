@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52186&amp;path=livereload" data-no-instant defer></script>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-    <meta property="og:site_name" content="My New Hugo Site">
+    <meta property="og:site_name" content="Huabing Blog">
     <meta property="og:type" content="article">
 
     
@@ -31,10 +31,10 @@
     
     
 
-    <meta name="keyword"  content="">
+    <meta name="keyword"  content="赵化冰, zhaohuabing, Zhaohuabing, , 赵化冰的网络日志, 赵化冰的博客, Zhaohuabing Blog, 博客, 个人网站, 互联网, Web, 云原生, PaaS, Istio, Kubernetes, 微服务, Microservice">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Istio v1aplha3 routing API介绍(译文） | </title>
+    <title>Istio v1aplha3 routing API介绍(译文） | 赵化冰的博客 | Zhaohuabing Blog</title>
 
     <link rel="canonical" href="/2018/06/04/introducing-the-istio-v1alpha3-routing-api/">
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">My New Hugo Site</a>
+            <a class="navbar-brand" href="/">Huabing Blog</a>
         </div>
 
         
@@ -113,13 +113,15 @@
                             <a href="/categories/tips/">tips</a>
                         </li>
                         
-                        <li>
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-                        </li>
-                        
                     
                     
 		    
+                        <li><a href="/archive//">ARCHIVE</a></li>
+                    
+                        <li><a href="/notes//">NOTES</a></li>
+                    
+                        <li><a href="/about//">ABOUT</a></li>
+                    
 		            <li>
                         <a href="/search"><i class="fa fa-search"></i></a>
 		           </li>
@@ -251,118 +253,118 @@
 <p>对于入口流量管理，您可能会问： 为什么不直接使用Kubernetes Ingress API ？ 原因是Ingress API无法表达Istio的路由需求。 Ingress试图在不同的HTTP代理之间取一个公共的交集，因此只能支持最基本的HTTP路由，最终导致需要将代理的其他高级功能放入到注解（annotation）中，而注解的方式在多个代理之间是不兼容的，无法移植。</p>
 <p>Istio <code>Gateway</code> 通过将L4-L6配置与L7配置分离的方式克服了<code>Ingress</code>的这些缺点。 <code>Gateway</code>只用于配置L4-L6功能（例如，对外公开的端口，TLS配置），所有主流的L7代理均以统一的方式实现了这些功能。 然后，通过在<code>Gateway</code>上绑定<code>VirtualService</code>的方式，可以使用标准的Istio规则来控制进入<code>Gateway</code>的HTTP和TCP流量。</p>
 <p>例如，下面这个简单的<code>Gateway</code>配置了一个Load Balancer，以允许访问host bookinfo.com的https外部流量入mesh中：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Gateway</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">bookinfo-gateway</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">servers</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">number</span>: <span style="color:#ae81ff">443</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">https</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">HTTPS</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">bookinfo.com</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">SIMPLE</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">serverCertificate</span>: <span style="color:#ae81ff">/tmp/tls.crt</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">privateKey</span>: <span style="color:#ae81ff">/tmp/tls.key</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: Gateway
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo-gateway
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">servers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">port</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">443</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">name</span>: https
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">protocol</span>: HTTPS
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - bookinfo.com
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">mode</span>: SIMPLE
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">serverCertificate</span>: /tmp/tls.crt
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">privateKey</span>: /tmp/tls.key
 </span></span></code></pre></div><p>要为进入上面的Gateway的流量配置相应的路由，必须为同一个host定义一个<code>VirtualService</code>（在下一节中描述），并使用配置中的<code>gateways</code>字段绑定到前面定义的<code>Gateway</code> 上：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">VirtualService</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">bookinfo</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">bookinfo.com</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">gateways</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">bookinfo-gateway</span> <span style="color:#75715e"># &lt;---- bind to gateway</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">match</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">uri</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/reviews</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">...</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: VirtualService
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - bookinfo.com
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">gateways</span>:
+</span></span><span style="display:flex;"><span>  - bookinfo-gateway <span style="color:#6272a4"># &lt;---- bind to gateway</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">prefix</span>: /reviews
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    ...
 </span></span></code></pre></div><p>Gateway可以用于建模边缘代理或纯粹的内部代理，如第一张图所示。 无论在哪个位置，所有网关都可以用相同的方式进行配置和控制。</p>
 <h3 id="virtualservice">VirtualService</h3>
 <p>用一种叫做“Virtual services”的东西代替路由规则可能看起来有点奇怪，但对于它配置的内容而言，这事实上是一个更好的名称，特别是在重新设计API以解决先前模型的可扩展性问题之后。</p>
 <p>实际上，发生的变化是：在之前的模型中，需要用一组相互独立的配置规则来为特定的目的服务设置路由规则，并通过precedence字段来控制这些规则的顺序；在新的API中，则直接对（虚拟）服务进行配置，该虚拟服务的所有规则以一个有序列表的方式配置在对应的<a href="/docs/reference/config/istio.networking.v1alpha3/#VirtualService">VirtualService</a> 资源中。</p>
 <p>例如，之前在<a href="/docs/guides/bookinfo/">Bookinfo</a> 应用程序的reviews服务中有两个RouteRule资源，如下所示：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">config.istio.io/v1alpha2</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RouteRule</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews-default</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">precedence</span>: <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">labels</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: config.istio.io/v1alpha2
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: RouteRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews-default
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">name</span>: reviews
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">precedence</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
 </span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">config.istio.io/v1alpha2</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RouteRule</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews-test-v2</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">precedence</span>: <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">match</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">request</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">headers</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cookie</span>:
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">regex</span>: <span style="color:#e6db74">&#34;^(.*?;)?(user=jason)(;.*)?$&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">labels</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: config.istio.io/v1alpha2
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: RouteRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews-test-v2
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">name</span>: reviews
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">precedence</span>: <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">request</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">headers</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">cookie</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">regex</span>: <span style="color:#f1fa8c">&#34;^(.*?;)?(user=jason)(;.*)?$&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2
 </span></span></code></pre></div><p>在<code>v1alph3</code>，可以在单个<code>VirtualService</code>资源中提供相同的配置：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">VirtualService</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">match</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">headers</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cookie</span>:
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">regex</span>: <span style="color:#e6db74">&#34;^(.*?;)?(user=jason)(;.*)?$&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">subset</span>: <span style="color:#ae81ff">v2</span>
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">subset</span>: <span style="color:#ae81ff">v1</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: VirtualService
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - reviews
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">headers</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">cookie</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">regex</span>: <span style="color:#f1fa8c">&#34;^(.*?;)?(user=jason)(;.*)?$&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: reviews
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">subset</span>: v2
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: reviews
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">subset</span>: v1
 </span></span></code></pre></div><p>正如你所看到的， 和reviews服务相关的两个规则集中写在了一个地方。这个改变乍一看可能觉得并没有什么特别的优势， 然而，如果仔细观察这个新模型，会发现它和之前的API之间存在着根本的差异，这使得v1alpha3功能更加强大。</p>
 <p>首先，请注意<code>VirtualService</code>的目标服务是使用<code>hosts</code>字段（实际上是重复字段）指定的，然后再在每个路由的<code>destination</code>字段中指定。 这是与以前模型的重要区别。</p>
 <p><code>VirtualService</code>描述了一个或多个用户可寻址目标到网格内实际工作负载之间的映射。在上面的示例中，这两个地址是相同的，但实际上用户可寻址目标可以是任何用于定位服务的，具有可选通配符前缀或CIDR前缀的DNS名称。
 这对于应用从单体架构到微服务架构的迁移过程特别有用，单体应用被拆分为多个独立的微服务后，采用VirtaulService可以继续把多个微服务对外暴露为同一个目标地址，而不需要服务消费者进行修改以适应该变化。</p>
 <p>例如，以下规则允许服务消费者访问Bookinfo应用程序的reviews和ratings服务，就好像它们是<code>http://bookinfo.com/</code>（虚拟）服务的一部分：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">VirtualService</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">bookinfo</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">bookinfo.com</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">match</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">uri</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/reviews</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">match</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">uri</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">/ratings</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">route</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">destination</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">host</span>: <span style="color:#ae81ff">ratings</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">...</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: VirtualService
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: bookinfo
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>    - bookinfo.com
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">prefix</span>: /reviews
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: reviews
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">match</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">uri</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">prefix</span>: /ratings
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">route</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ff79c6">destination</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">host</span>: ratings
+</span></span><span style="display:flex;"><span>  ...
 </span></span></code></pre></div><p>实际上在｀VirtualService｀中hosts部分设置只是虚拟的目的地,因此不一定是已在网格中注册的服务。这允许用户为在网格内没有可路由条目的虚拟主机的流量进行建模。 通过将<code>VirtualService</code>绑定到同一Host的<code>Gateway</code>配置（如前一节所述 ），可向网格外部暴露这些Host。</p>
 <p>除了这个重大的重构之外， <code>VirtualService</code>还包括其他一些重要的改变：</p>
 <ol>
@@ -384,58 +386,58 @@
 <li><code>DestinationRule</code>定义了目的host的子集<code>subsets</code> （例如：命名版本）。 这些subset用于｀VirtualService｀的路由规则设置中，可以将流量导向服务的某些特定版本。 通过这种方式为版本命名后，可以在不同的virtual service中明确地引用这些命名版本的ubset，简化Istio代理发出的统计数据，并可以将subsets编码到SNI头中。
 为reviews服务配置策略和subsets的<code>DestinationRule</code>可能如下所示：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">DestinationRule</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">host</span>: <span style="color:#ae81ff">reviews</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">trafficPolicy</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">loadBalancer</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">simple</span>: <span style="color:#ae81ff">RANDOM</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">subsets</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">v1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1</span>
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">v2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">trafficPolicy</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">loadBalancer</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">simple</span>: <span style="color:#ae81ff">ROUND_ROBIN</span>
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">v3</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v3</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: reviews
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">host</span>: reviews
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">simple</span>: RANDOM
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">subsets</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v1
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v1
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v2
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v2
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">loadBalancer</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">simple</span>: ROUND_ROBIN
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">name</span>: v3
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">labels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">version</span>: v3
 </span></span></code></pre></div><p>注意，与<code>DestinationPolicy</code>不同的是，可在单个<code>DestinationRule</code>中指定多个策略（例如上面实例中的缺省策略和v2版本特定的策略）。</p>
 <h3 id="serviceentry">ServiceEntry</h3>
 <p><a href="https://istio.io/docs/reference/config/istio.networking.v1alpha3/#ServiceEntry">ServiceEntry</a>用于将附加条目添加到Istio内部维护的服务注册表中。
 它最常用于对访问网格外部依赖的流量进行建模，例如访问Web上的API或遗留基础设施中的服务。</p>
 <p>所有以前使用<code>EgressRule</code>进行配置的内容都可以通过<code>ServiceEntry</code>轻松完成。 例如，可以使用类似这样的配置来允许从网格内部访问一个简单的外部服务：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceEntry</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">foo-ext</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">foo.com</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">number</span>: <span style="color:#ae81ff">80</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">HTTP</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: ServiceEntry
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: foo-ext
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>:
+</span></span><span style="display:flex;"><span>  - foo.com
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ff79c6">number</span>: <span style="color:#bd93f9">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">name</span>: http
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">protocol</span>: HTTP
 </span></span></code></pre></div><p>也就是说，<code>ServiceEntry</code>比它的前身具有更多的功能。首先，<code>ServiceEntry</code>不限于外部服务配置，它可以有两种类型：网格内部或网格外部。网格内部条目只是用于向网格显式添加服务，添加的服务与其他内部服务一样。采用网格内部条目，可以把原本未被网格管理的基础设施也纳入到网格中（例如，把虚机中的服务添加到基于Kubernetes的服务网格中）。网格外部条目则代表了网格外部的服务。对于这些外部服务来说，mTLS身份验证是禁用的，并且策略是在客户端执行的，而不是在像内部服务请求一样在服务器端执行策略。</p>
 <p>由于<code>ServiceEntry</code>配置只是将服务添加到网格内部的服务注册表中，因此它可以像注册表中的任何其他服务一样,与<code>VirtualService</code>和/或<code>DestinationRule</code>一起使用。例如，以下<code>DestinationRule</code>可用于启动外部服务的mTLS连接：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.istio.io/v1alpha3</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">DestinationRule</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">foo-ext</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">foo.com</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">trafficPolicy</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tls</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">MUTUAL</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">clientCertificate</span>: <span style="color:#ae81ff">/etc/certs/myclientcert.pem</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">privateKey</span>: <span style="color:#ae81ff">/etc/certs/client_private_key.pem</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">caCertificates</span>: <span style="color:#ae81ff">/etc/certs/rootcacerts.pem</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">apiVersion</span>: networking.istio.io/v1alpha3
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kind</span>: DestinationRule
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: foo-ext
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">name</span>: foo.com
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">trafficPolicy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">tls</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">mode</span>: MUTUAL
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">clientCertificate</span>: /etc/certs/myclientcert.pem
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">privateKey</span>: /etc/certs/client_private_key.pem
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">caCertificates</span>: /etc/certs/rootcacerts.pem
 </span></span></code></pre></div><p>除了扩展通用性以外，<code>ServiceEntry</code>还提供了其他一些有关<code>EgressRule</code>改进，其中包括：</p>
 <ol>
 <li>一个<code>ServiceEntry</code>可以配置多个服务端点，这在之前需要采用多个<code>EgressRules</code>来实现。</li>
@@ -471,6 +473,46 @@
 </ul>
 
                 
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	<div class="zs-modal-head">
+		<button type="button" class="close">×</button>
+		<span class="author"><a href="http://localhost:1313/"><img src="/img/favicon.png" />Huabing Blog</a></span>
+        
+	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+		
+ 
+	</div>
+	<div class="zs-modal-body">
+		<div class="zs-modal-btns">
+			<button class="btn btn-blink" data-num="2">2元</button>
+			<button class="btn btn-blink" data-num="5">5元</button>
+			<button class="btn btn-blink" data-num="10">10元</button>
+			<button class="btn btn-blink" data-num="50">50元</button>
+			<button class="btn btn-blink" data-num="100">100元</button>
+			<button class="btn btn-blink" data-num="1">任意金额</button>
+		</div>
+		<div class="zs-modal-pay">
+			<button class="btn btn-bred" id="pay-text">2元</button>
+			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+		</div>
+	</div>
+	<div class="zs-modal-footer">
+		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+	</div>
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
 
                 
                 <hr>
@@ -493,6 +535,23 @@
                 
 
 
+
+
+<link href="https://xxx.xxx.com/dist/Artalk.css" rel="stylesheet" />
+<script src="https://xxx.xxx.com/dist/Artalk.js"></script>
+
+
+<div id="Comments"></div>
+
+<script>
+    Artalk.init({
+        el: '#Comments',
+        pageKey: 'http:\/\/localhost:1313\/2018\/06\/04\/introducing-the-istio-v1alpha3-routing-api\/',
+        pageTitle: 'Istio v1aplha3 routing API介绍(译文）',
+        server: 'https:\/\/xxx.xxx.com',
+        site: 'xxx blog',
+    })
+</script>
 
 
             </div>
@@ -522,8 +581,85 @@
 
                 
                 
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/docker" title="docker">
+                            docker
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/istio" title="istio">
+                            istio
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/kubernetes" title="kubernetes">
+                            kubernetes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/microservice" title="microservice">
+                            microservice
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/service-mesh" title="service mesh">
+                            service mesh
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
 
                 
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
+                        
+                    </ul>
+                </section>
                 
             </div>
         </div>
@@ -539,6 +675,15 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     
+                    <li>
+                        <a href="mailto:youremail@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
                     
                     
                     
@@ -546,11 +691,47 @@
 
 		            
                     
+                    <li>
+                        <a target="_blank" href="/your%20wechat%20qr%20code%20image">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/yourgithub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
                     
                     
                     
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/yourlinkedinid">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
                     
                     
+                    <li>
+                        <a target="_blank" href="https://stackoverflow.com/users/yourstackoverflowid">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
                     
                     
                     
@@ -560,9 +741,26 @@
             
             
            
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Huabing Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
              </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; My New Hugo Site 2025
+                    Copyright &copy; Huabing Blog 2025
+                    
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
                     
                 </p>
             </div>
